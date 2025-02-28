@@ -1,6 +1,3 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 
 const sentimentColors = {
@@ -10,38 +7,16 @@ const sentimentColors = {
   UNKNOWN: "#B0BEC5",  // Gri (Bilinmeyen)
 };
 
-const SentimentMap = ({ apiUrl }) => {
-  const [countryData, setCountryData] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(apiUrl);
-        const data = await response.json();
-        setCountryData(data);
-      } catch (error) {
-        console.error("Error fetching sentiment data:", error);
-      }
-    };
-
-    fetchData();
-  }, [apiUrl]);
-
-  // Ülke adına göre sentiment değeri bul
-  const getCountrySentiment = (countryName) => {
-    const country = countryData.find((c) => c.country === countryName);
-    return country ? country.sentiment : "UNKNOWN";
-  };
-
+const MapComponent = ({ countryData, getCountrySentiment, setHoveredCountry }) => {
   return (
-    <div className="flex justify-center items-center h-screen">
-      <ComposableMap projectionConfig={{ scale: 150 }}>
+    <div className="bg-transparent backdrop-blur-sm rounded-lg w-full lg:w-4/5 xl:w-3/4 shadow-md">
+      <ComposableMap projectionConfig={{ scale: 200 }}>
         <Geographies geography="https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json">
           {({ geographies }) =>
             geographies.map((geo) => {
               const countryName = geo.properties.name;
               const sentiment = getCountrySentiment(countryName);
-              const fillColor = sentimentColors[sentiment] || "#D3D3D3"; // Varsayılan gri renk
+              const fillColor = sentimentColors[sentiment] || "#D3D3D3";
 
               return (
                 <Geography
@@ -49,6 +24,9 @@ const SentimentMap = ({ apiUrl }) => {
                   geography={geo}
                   fill={fillColor}
                   stroke="#FFF"
+                  className="transition-all duration-200 hover:scale-103"
+                  onMouseEnter={() => setHoveredCountry({ name: countryName, sentiment })}
+                  onMouseLeave={() => setHoveredCountry(null)}
                   style={{
                     default: { outline: "none" },
                     hover: { fill: "#2196F3", outline: "none" },
@@ -64,4 +42,4 @@ const SentimentMap = ({ apiUrl }) => {
   );
 };
 
-export default SentimentMap;
+export default MapComponent;

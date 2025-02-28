@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@fontsource/eb-garamond": "^5.1.2",
     "chart.js": "^4.4.7",
     "d3-scale": "^4.0.2",
     "langdetect": "^0.2.1",
