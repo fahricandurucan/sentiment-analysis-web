@@ -1,5 +1,28 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.custom-gradient {
+  background: linear-gradient(145deg, 
+    rgba(240, 245, 255, 0.95) 0%,
+    rgba(255, 240, 250, 0.95) 100%
+  );
+}
+
+/* Kutu hover efektleri */
+.box-hover {
+  transition: all 0.3s ease;
+}
+
+.box-hover:hover {
+  transform: translateY(-5px) rotate(0deg);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+}
+
+/* 3D efekt için gerekli stiller */
+@layer utilities {
+  .translate-z-\[-20px\] {
+    transform: translateZ(-20px);
+  }
+}
 
