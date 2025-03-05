@@ -16,7 +16,7 @@ export default function SearchBar({ onSearch }) {
         <input
           type="text"
           placeholder="Enter the term to search for..."
-          className="w-full p-3 pl-10 pr-4 border border-gray-300 rounded-full text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-950 transition-all duration-300 ease-in-out transform hover:scale-105"
+          className="w-full p-3 pl-10 pr-4 border border-gray-300 rounded-full text-gray-700 focus:outline-none focus:ring-2 focus:ring-scale-300 transition-all duration-300 ease-in-out "
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
@@ -39,7 +39,7 @@ export default function SearchBar({ onSearch }) {
       </div>
       <button
         type="submit"
-        className="bg-blue-900 hover:bg-blue-950 text-white px-6 py-3 rounded-full text-lg font-semibold transform transition-all duration-300 hover:scale-110"
+        className="bg-yellow-500 hover:bg-yellow-600 text-white px-6 py-3 rounded-full text-lg font-semibold transform transition-all duration-300 hover:scale-105"
       >
         Ara
       </button>

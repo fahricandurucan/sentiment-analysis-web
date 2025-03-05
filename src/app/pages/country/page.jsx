@@ -40,7 +40,7 @@ const MapPage = () => {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen bg-gray-100 flex flex-col items-center p-6 backdrop-blur-sm">
+      <div className="min-h-screen bg-purple-50 flex flex-col items-center p-6 ">
         <h1 className="text-4xl font-bold text-gray-800 mb-2 mt-16">Küresel Duygu Analizi</h1>
 
         {/* Search Bar */}
