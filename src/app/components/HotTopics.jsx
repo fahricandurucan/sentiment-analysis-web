@@ -8,12 +8,11 @@ const HotTopics = ({ onTopicClick }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(4);
 
-  // 🟢 API'den Konu Başlıklarını Çek
   useEffect(() => {
     const fetchTopics = async () => {
       try {
         const response = await axios.get("http://127.0.0.1:5000/hot-topics");
-        setTopics(response.data || []); // API artık sadece string array döndürüyor
+        setTopics(response.data || []); 
       } catch (error) {
         console.error("Başlıkları çekerken hata:", error);
       } finally {
@@ -24,7 +23,6 @@ const HotTopics = ({ onTopicClick }) => {
     fetchTopics();
   }, []);
 
-  // 🟢 Ekran Boyutuna Göre Sayfa Başına Eleman Sayısını Ayarla
   useEffect(() => {
     const handleResize = () => {
       if (containerRef.current) {
@@ -39,8 +37,7 @@ const HotTopics = ({ onTopicClick }) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // 🟢 Yükleniyorsa Spinner Göster
-  if (loading) return <div>Yükleniyor...</div>;
+  if (loading) return <div>Loading...</div>;
   if (topics.length === 0) return <div>Güncel konu bulunamadı.</div>;
 
   // 🟢 Kaydırma İşlemleri
@@ -60,7 +57,7 @@ const HotTopics = ({ onTopicClick }) => {
         {/* Sol Kaydırma Butonu */}
         <button
           onClick={scrollLeft}
-          className="absolute left-0 bg-gray-600 hover:bg-gray-700 text-white px-3 py-2 rounded-full z-10"
+          className="absolute left-0 bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-2 rounded-full z-10"
         >
           &lt;
         </button>
@@ -75,7 +72,7 @@ const HotTopics = ({ onTopicClick }) => {
             <button
               key={index}
               onClick={() => onTopicClick(topic)}
-              className="bg-slate-300 hover:bg-gray-600 hover:text-white text-black px-2 py-2 rounded-xl transition-all duration-300 transform hover:scale-105"
+              className="bg-yellow-200 hover:bg-yellow-300 hover:text-white text-black px-2 py-2 rounded-xl transition-all duration-300 transform hover:scale-105"
               style={{ minWidth: "200px" }}
             >
               {topic}
@@ -86,7 +83,7 @@ const HotTopics = ({ onTopicClick }) => {
         {/* Sağ Kaydırma Butonu */}
         <button
           onClick={scrollRight}
-          className="absolute right-0 bg-gray-600 hover:bg-gray-700 text-white px-3 py-2 rounded-full z-10"
+          className="absolute right-0 bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-2 rounded-full z-10"
         >
           &gt;
         </button>

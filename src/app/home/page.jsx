@@ -22,12 +22,11 @@ const Home = () => {
             <h1 className="text-xl md:text-2xl font-bold text-gray-900 mb-1">
               Sentiment Analysis Data - Reddit Graph
             </h1>
-            <h2 className="text-lg md:text-xl text-gray-800 mb-2">
+            <h2 className="text-sm md:text-md text-gray-800 mb-2">
               Visualizes: from Reddit
             </h2>
             <p className="text-xs md:text-sm text-gray-600 leading-relaxed">
-              This fascinating Reddit-inspired sentiment graph with background designed with soft variables sentiment data from the background data content gives.
-            </p>
+            These fascinating Reddit-inspired sentiment analyses come from a background data context designed with soft-variant sentiment data in the background.            </p>
           </div>
 
           {/* Kutular */}
