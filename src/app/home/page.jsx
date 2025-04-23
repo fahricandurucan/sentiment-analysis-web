@@ -36,7 +36,7 @@ const Home = () => {
               className="absolute left-4 md:left-[35%] top-[5%] md:top-[24%] w-[calc(100%-2rem)] md:w-[280px] h-[120px] 
               bg-[#FFB5B5] p-5 rounded-2xl shadow-lg transform hover:-translate-y-2 transition-all duration-300 cursor-pointer
               border-t-[1px] border-r-[1px] border-white/50"
-              onClick={() => router.push("/pages/country")}
+              onClick={() => router.push("/country")}
             >
               <div className="w-4 h-4 bg-[#FF9999] rounded-full mb-3"></div>
               <h3 className="text-sm font-medium text-gray-800">Analysis by Country</h3>
@@ -48,7 +48,7 @@ const Home = () => {
               className="absolute left-4 md:left-[55%] top-[28%] md:top-[8%] w-[calc(100%-2rem)] md:w-[280px] h-[120px] 
               bg-[#f0f7a9] p-5 rounded-2xl shadow-lg transform hover:-translate-y-2 transition-all duration-300 cursor-pointer
               border-t-[1px] border-r-[1px] border-white/50"
-              onClick={() => router.push("/pages/gender")}
+              onClick={() => router.push("/gender")}
             >
               <div className="w-4 h-4 bg-[#baca60] rounded-full mb-3"></div>
               <h3 className="text-sm font-medium text-gray-800">Analysis by Gender</h3>
@@ -60,7 +60,7 @@ const Home = () => {
               className="absolute left-4 md:left-[55%] top-[51%] md:top-[45%] w-[calc(100%-2rem)] md:w-[280px] h-[120px] 
               bg-[#B5E0E5] p-5 rounded-2xl shadow-lg transform hover:-translate-y-2 transition-all duration-300 cursor-pointer
               border-t-[1px] border-r-[1px] border-white/50"
-              onClick={() => router.push("/pages/generations")}
+              onClick={() => router.push("/generation")}
             >
               <div className="w-4 h-4 bg-[#92C5D5] rounded-full mb-3"></div>
               <h3 className="text-sm font-medium text-gray-800">Analysis by Generations</h3>

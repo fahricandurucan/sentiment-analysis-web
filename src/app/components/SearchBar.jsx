@@ -1,58 +1,71 @@
 "use client";
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
-
-export default function SearchBar({ onSearch }) {
+export default function SearchBar({ onSearch, externalQuery }) {
   const [query, setQuery] = useState("");
   const [isFocused, setIsFocused] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isSearching, setIsSearching] = useState(false);
 
+  useEffect(() => {
+    if (externalQuery !== undefined) {
+      setQuery(externalQuery);
+      setIsSearching(true);
+      onSearch(externalQuery);
+      setTimeout(() => setIsSearching(false), 2000);
+    }
+  }, [externalQuery]);
+  
   const handleSearch = (e) => {
     e.preventDefault();
+    setIsSearching(true); 
     onSearch(query);
+    
+    // Arama bitince, örneğin 2 saniye sonra, arama durumunu false yapıyoruz
+    setTimeout(() => setIsSearching(false), 2000); // 2 saniye sonra arama bitti
   };
-
   const handleFocus = () => {
     setIsFocused(true);
   };
-
   const handleBlur = () => {
     setIsFocused(false);
   };
-
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
   const handleInputChange = (e) => {
     setQuery(e.target.value);
   };
-
   return (
     <div className="flex items-center justify-center gap-4 animate-fade-in">
-      {/* Search Bar */}
       <form onSubmit={handleSearch} className="relative">
         <div
-          className={`relative w-96 h-12 rounded-full bg-transparent border ${
-            isFocused ? "border-none" : "border-purple-500"
-          } transition-all duration-400`}
-        >
-          {/* Input Field */}
-          <input
-            type="text"
-            id="search"
-            placeholder="Search..."
-            className={`w-full h-full pl-10 pr-4 bg-transparent text-purple-600 placeholder-purple-400 outline-none rounded-full font-medium text-md transition-all duration-300 ${
-              isFocused
-                ? "border-b-2 border-purple-500 rounded-none pl-0"
-                : "border-purple-300"
-            }`}
-            value={query}
-            onChange={handleInputChange}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
-          />
-          {/* Search Icon */}
-          <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-purple-500">
-            <FaSearch />
-          </span>
-        </div>
+          className={`relative w-96 h-12 rounded-full bg-transparent border border-purple-500 transition-all duration-300
+            ${isFocused || isHovered ? "opacity-0 border-transparent" : "opacity-100"}
+            ${isHovered ? "opacity-0 border-transparent" : "opacity-100"}
+          `}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        ></div>
+        <input
+          type="text"
+          id="search"
+          placeholder="Search..."
+          className={`absolute top-0 left-0 w-full h-full pl-10 pr-4 bg-transparent text-purple-600 placeholder-purple-400 outline-none rounded-full font-medium text-md transition-all duration-300
+            focus:border-b-2 focus:border-purple-500 focus:rounded-none focus:pl-0
+          `}
+          value={query}
+          onChange={handleInputChange}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+        />
+        <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-purple-500 transition-all duration-500">
+          <FaSearch />
+        </span>
+        
       </form>
     </div>
   );

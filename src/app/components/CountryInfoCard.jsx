@@ -1,26 +1,21 @@
 import Link from "next/link";
-
 const CountryInfoCard = ({ country, countryData }) => {
   // Calculate total posts for this country
   const countryPosts = countryData?.filter(post => post.country === country.name) || [];
   const totalPosts = countryPosts.length;
-
   // Calculate sentiment distribution
   const sentimentCounts = countryPosts.reduce((acc, post) => {
     acc[post.sentiment] = (acc[post.sentiment] || 0) + 1;
     return acc;
   }, {});
-
   // Get the latest post
   const latestPost = countryPosts.sort((a, b) => new Date(b.date) - new Date(a.date))[0];
-
   return (
     <div className="bg-white p-6 rounded-lg shadow-lg max-w-xs w-full">
       {/* Country Name */}
       <h3 className="text-3xl font-semibold text-gray-800 mb-4">
         {country.name}
       </h3>
-
       {/* Country Details */}
       <div className="space-y-4 mb-6">
         <div className="flex items-center text-gray-600">
@@ -29,7 +24,6 @@ const CountryInfoCard = ({ country, countryData }) => {
           </svg>
           <span className="text-lg">Total Posts: {totalPosts}</span>
         </div>
-
         {/* Sentiment Distribution */}
         <div className="space-y-2">
           <div className="text-gray-600 font-medium mb-1">Sentiment Distribution:</div>
@@ -52,7 +46,6 @@ const CountryInfoCard = ({ country, countryData }) => {
             ))}
           </div>
         </div>
-
         {/* Latest Post */}
         {latestPost && (
           <div className="space-y-2">
@@ -66,7 +59,6 @@ const CountryInfoCard = ({ country, countryData }) => {
           </div>
         )}
       </div>
-
       {/* Overall Sentiment Badge */}
       <div className="flex flex-col items-center space-y-4">
         <span
@@ -82,10 +74,9 @@ const CountryInfoCard = ({ country, countryData }) => {
         >
           Overall Sentiment: {country.sentiment}
         </span>
-
         {/* See All Posts Button */}
         <Link
-          href={`/pages/posts/${country.name}`}
+          href={`/postsCountry/${country.name}`}
           className="w-full py-2 px-4 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors duration-200 text-center flex items-center justify-center space-x-2"
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -97,5 +88,4 @@ const CountryInfoCard = ({ country, countryData }) => {
     </div>
   );
 };
-
 export default CountryInfoCard; 

@@ -5,26 +5,21 @@ import { useState } from "react";
 import { geoCentroid } from "d3-geo";
 import { geoMercator } from "d3-geo";
 import { Plus, Minus, ArrowUp, ArrowDown, ArrowLeft, ArrowRight } from "lucide-react";
-
 const projection = geoMercator().scale(115).translate([400, 350]);
-
 const sentimentColors = {
   positive: "#34D399",
   neutral: "#FBBF24",
   negative: "#EF4444",
   UNKNOWN: "#9CA3AF",
 };
-
 const sentimentEmojis = {
   positive: "😊",
   neutral: "😐",
   negative: "😞"
 };
-
 const MapComponent = ({ getCountrySentiment, setHoveredCountry, clickedCountry, setClickedCountry }) => {
   const [zoom, setZoom] = useState(1);
   const [center, setCenter] = useState({ x: 0, y: 0 });
-
   const adjustZoom = (amount) => setZoom((prev) => Math.max(0.7, Math.min(5, prev + amount)));
   
   const moveMap = (dx, dy) => setCenter((prev) => ({ x: prev.x + dx, y: prev.y + dy }));
@@ -33,7 +28,6 @@ const MapComponent = ({ getCountrySentiment, setHoveredCountry, clickedCountry, 
     setZoom(1);
     setCenter({ x: 0, y: 0 });
   };
-
   const handleCountryClick = (countryName) => {
     if (clickedCountry?.name === countryName) {
       setClickedCountry(null);
@@ -43,7 +37,6 @@ const MapComponent = ({ getCountrySentiment, setHoveredCountry, clickedCountry, 
     }
   };
   
-
   return (
     <motion.div className="relative bg-white backdrop-blur-md rounded-lg w-full lg:w-[90%] xl:w-[95%] shadow-xl">
       {/* Controls Panel */}
@@ -60,7 +53,6 @@ const MapComponent = ({ getCountrySentiment, setHoveredCountry, clickedCountry, 
             </button>
           </div>
         </div>
-
         {/* Navigation Controls */}
         <div className="flex flex-col space-y-2">
           <h3 className="text-sm font-semibold text-gray-700 mb-1">Navigation</h3>
@@ -92,7 +84,6 @@ const MapComponent = ({ getCountrySentiment, setHoveredCountry, clickedCountry, 
           </div>
         </div>
       </div>
-
       {/* Sentiment Guide */}
       <div className="absolute top-72 left-4 z-10 bg-white p-5 rounded-lg shadow-lg border border-gray-100">
         <h3 className="text-sm font-semibold text-gray-700 mb-2">Sentiment Guide</h3>
@@ -115,7 +106,6 @@ const MapComponent = ({ getCountrySentiment, setHoveredCountry, clickedCountry, 
           </div>
         </div>
       </div>
-
       <ComposableMap projection={projection} className="rounded-lg">
         <ZoomableGroup zoom={zoom} center={[center.x, center.y]}>
           <Geographies geography="https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json">
@@ -125,7 +115,6 @@ const MapComponent = ({ getCountrySentiment, setHoveredCountry, clickedCountry, 
                 const sentiment = getCountrySentiment(countryName);
                 const fillColor = sentimentColors[sentiment] || "#D1D5DB";
                 const centroid = projection(geoCentroid(geo)) || [0, 0];
-
                 return (
                   <g key={geo.rsmKey}>
                     <Geography
@@ -161,6 +150,5 @@ const MapComponent = ({ getCountrySentiment, setHoveredCountry, clickedCountry, 
     </motion.div>
   );
 };
-
 
 export default MapComponent;
