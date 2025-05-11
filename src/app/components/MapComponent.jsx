@@ -5,29 +5,28 @@ import { useState } from "react";
 import { geoCentroid } from "d3-geo";
 import { geoMercator } from "d3-geo";
 import { Plus, Minus, ArrowUp, ArrowDown, ArrowLeft, ArrowRight } from "lucide-react";
+import { Smile, Meh, Frown } from "lucide-react";  // Imported icons
+
 const projection = geoMercator().scale(115).translate([400, 350]);
+
 const sentimentColors = {
-  positive: "#34D399",
-  neutral: "#FBBF24",
-  negative: "#EF4444",
-  UNKNOWN: "#9CA3AF",
+  positive: "#34D399",  
+  neutral: "#FBBF24",  
+  negative: "#EF4444", 
+  UNKNOWN: "#9CA3AF",   
 };
-const sentimentEmojis = {
-  positive: "😊",
-  neutral: "😐",
-  negative: "😞"
-};
+
 const MapComponent = ({ getCountrySentiment, setHoveredCountry, clickedCountry, setClickedCountry }) => {
   const [zoom, setZoom] = useState(1);
   const [center, setCenter] = useState({ x: 0, y: 0 });
+
   const adjustZoom = (amount) => setZoom((prev) => Math.max(0.7, Math.min(5, prev + amount)));
-  
   const moveMap = (dx, dy) => setCenter((prev) => ({ x: prev.x + dx, y: prev.y + dy }));
-  
   const resetMap = () => {
     setZoom(1);
     setCenter({ x: 0, y: 0 });
   };
+
   const handleCountryClick = (countryName) => {
     if (clickedCountry?.name === countryName) {
       setClickedCountry(null);
@@ -36,7 +35,7 @@ const MapComponent = ({ getCountrySentiment, setHoveredCountry, clickedCountry, 
       setClickedCountry({ name: countryName, sentiment });
     }
   };
-  
+
   return (
     <motion.div className="relative bg-white backdrop-blur-md rounded-lg w-full lg:w-[90%] xl:w-[95%] shadow-xl">
       {/* Controls Panel */}
@@ -84,21 +83,22 @@ const MapComponent = ({ getCountrySentiment, setHoveredCountry, clickedCountry, 
           </div>
         </div>
       </div>
+
       {/* Sentiment Guide */}
       <div className="absolute top-72 left-4 z-10 bg-white p-5 rounded-lg shadow-lg border border-gray-100">
         <h3 className="text-sm font-semibold text-gray-700 mb-2">Sentiment Guide</h3>
         <div className="space-y-2">
           <div className="flex items-center space-x-2">
             <div className="w-4 h-4 rounded-full" style={{ backgroundColor: sentimentColors.positive }}></div>
-            <span className="text-sm text-gray-600">Positive {sentimentEmojis.positive}</span>
+            <span className="text-sm text-gray-600">Positive <Smile size={16} className="text-green-500" /></span>
           </div>
           <div className="flex items-center space-x-2">
             <div className="w-4 h-4 rounded-full" style={{ backgroundColor: sentimentColors.neutral }}></div>
-            <span className="text-sm text-gray-600">Neutral {sentimentEmojis.neutral}</span>
+            <span className="text-sm text-gray-600">Neutral <Meh size={16} className="text-yellow-500" /></span>
           </div>
           <div className="flex items-center space-x-2">
             <div className="w-4 h-4 rounded-full" style={{ backgroundColor: sentimentColors.negative }}></div>
-            <span className="text-sm text-gray-600">Negative {sentimentEmojis.negative}</span>
+            <span className="text-sm text-gray-600">Negative <Frown size={16} className="text-red-500" /></span>
           </div>
           <div className="flex items-center space-x-2">
             <div className="w-4 h-4 rounded-full" style={{ backgroundColor: sentimentColors.UNKNOWN }}></div>
@@ -106,6 +106,8 @@ const MapComponent = ({ getCountrySentiment, setHoveredCountry, clickedCountry, 
           </div>
         </div>
       </div>
+
+      {/* Map Component */}
       <ComposableMap projection={projection} className="rounded-lg">
         <ZoomableGroup zoom={zoom} center={[center.x, center.y]}>
           <Geographies geography="https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json">
@@ -115,6 +117,7 @@ const MapComponent = ({ getCountrySentiment, setHoveredCountry, clickedCountry, 
                 const sentiment = getCountrySentiment(countryName);
                 const fillColor = sentimentColors[sentiment] || "#D1D5DB";
                 const centroid = projection(geoCentroid(geo)) || [0, 0];
+
                 return (
                   <g key={geo.rsmKey}>
                     <Geography
@@ -133,10 +136,14 @@ const MapComponent = ({ getCountrySentiment, setHoveredCountry, clickedCountry, 
                     {centroid && (
                       <foreignObject x={centroid[0] - 10} y={centroid[1] - 10} width={30} height={30} className="pointer-events-none">
                         <button
-                          className="bg-transparent text-lg rounded-full shadow-md hover:scale-110 transition-transform pointer-events-auto"
+                          className="bg-white text-lg rounded-full shadow-md hover:scale-110 transition-transform pointer-events-auto"
                           onClick={() => handleCountryClick(countryName)} // Handle click to keep information visible
+                          style={{ transform: `scale(${1 / zoom})`, transformOrigin: "center" }} 
+
                         >
-                          {sentimentEmojis[sentiment]}
+                          {sentiment === "positive" && <Smile size={16} className="text-green-500" />}
+                          {sentiment === "neutral" && <Meh size={16} className="text-yellow-500" />}
+                          {sentiment === "negative" && <Frown size={16} className="text-red-500" />}
                         </button>
                       </foreignObject>
                     )}

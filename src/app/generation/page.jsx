@@ -128,13 +128,30 @@ const GenerationGraph = () => {
             <div className="bg-purple-50 p-4 rounded-xl">
               <h3 className="text-xl font-bold mb-2">Latest Post</h3>
               {latestPost && (
-                <p className="text-sm text-gray-600 truncate">
-                  {latestPost.title}
-                  <br />
-                  <span className="text-xs text-gray-500">
-                    {new Date(latestPost.date).toLocaleDateString()}
-                  </span>
-                </p>
+                latestPost.link && latestPost.link !== "None" ? (
+                  <a 
+                    href={latestPost.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-gray-600 hover:text-purple-600 transition-colors duration-200"
+                  >
+                    <p className="truncate">
+                      {latestPost.title}
+                    </p>
+                    <span className="text-xs text-gray-500">
+                      {new Date(latestPost.date).toLocaleDateString()}
+                    </span>
+                  </a>
+                ) : (
+                  <div className="text-sm text-gray-600">
+                    <p className="truncate">
+                      {latestPost.title}
+                    </p>
+                    <span className="text-xs text-gray-500">
+                      {new Date(latestPost.date).toLocaleDateString()}
+                    </span>
+                  </div>
+                )
               )}
             </div>
           </div>
@@ -146,10 +163,6 @@ const GenerationGraph = () => {
             </div>
           ) : (
             <div className="mb-8">
-              <h2 className="text-2xl font-bold mb-6 text-center text-purple-700">
-                Sentiment Distribution by Generation
-              </h2>
-
               <div className="h-[400px]">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart
@@ -162,7 +175,8 @@ const GenerationGraph = () => {
                     }}
                   >
                     <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="generation" />
+                    <XAxis dataKey="generation" 
+                      tickFormatter={(value) => (value === "millennials" ? "GenY(r/Millennials)" : value)}/>
                     <YAxis />
                     <Tooltip content={<CustomTooltip />} />
                     <Legend />
@@ -200,12 +214,16 @@ const GenerationGraph = () => {
                         {gen.negative}
                       </p>
                     </div>
-                    <Link
-                      href={`/postsGeneration/${gen.generation}`}
+                    <a
+                      href={keyword.trim() !== "" 
+                        ? `https://www.reddit.com/r/${gen.generation === "millennials" ? "Millennials" : gen.generation}/search/?q=${keyword}`
+                        : `https://www.reddit.com/r/${gen.generation === "millennials" ? "Millennials" : gen.generation}/`}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="mt-4 block w-full text-center bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-200"
                     >
                       See All {gen.generation === "millennials" ? "GenY" : gen.generation} Posts
-                    </Link>
+                    </a>
                   </div>
                 ))}
               </div>

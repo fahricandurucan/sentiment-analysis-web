@@ -106,7 +106,7 @@ const GenderGraph = () => {
     <>
       <Navbar />
       <div className="min-h-screen bg-purple-50 flex flex-col items-center p-6 mt-12">
-      <SearchBar onSearch={setKeyword} externalQuery={keyword} />
+        <SearchBar onSearch={setKeyword} externalQuery={keyword} />
         <HotTopics onTopicClick={setKeyword} />
 
         <div className="mt-10 bg-white rounded-2xl shadow-xl p-6 w-full max-w-7xl">
@@ -120,65 +120,88 @@ const GenderGraph = () => {
             <div className="bg-purple-50 p-4 rounded-xl">
               <h3 className="text-xl font-bold mb-2">Latest Post</h3>
               {latestPost && (
-                <p className="text-sm text-gray-600 truncate">
-                  {latestPost.title}
-                  <br />
-                  <span className="text-xs text-gray-500">
-                    {new Date(latestPost.date).toLocaleDateString()}
-                  </span>
-                </p>
+                latestPost.link && latestPost.link !== "None" ? (
+                  <a 
+                    href={latestPost.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-gray-600 hover:text-purple-600 transition-colors duration-200"
+                  >
+                    <p className="truncate">
+                      {latestPost.title}
+                    </p>
+                    <span className="text-xs text-gray-500">
+                      {new Date(latestPost.date).toLocaleDateString()}
+                    </span>
+                  </a>
+                ) : (
+                  <div className="text-sm text-gray-600">
+                    <p className="truncate">
+                      {latestPost.title}
+                    </p>
+                    <span className="text-xs text-gray-500">
+                      {new Date(latestPost.date).toLocaleDateString()}
+                    </span>
+                  </div>
+                )
               )}
             </div>
           </div>
-
-          {/* İki ayrı grafik ya da boş veri mesajı */}
           {keyword.trim() !== "" && filteredPosts.length === 0 ? (
             <div className="text-center mt-16 text-gray-500 text-lg font-medium">
               No matching posts found for your search.
             </div>
           ) : (
             <div className="mb-8">
-              <h2 className="text-2xl font-bold mb-6 text-center text-purple-700">
-                Sentiment Distribution by Gender
-              </h2>
-
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {/* Kadın */}
                 <div>
                   <h3 className="text-lg font-semibold text-center mb-4 text-purple-500">
                     Women
                   </h3>
-                  <ResponsiveContainer width="100%" height={300}>
-                    <PieChart>
-                      <Pie
-                        data={askWomenData}
-                        dataKey="value"
-                        nameKey="name"
-                        cx="50%"
-                        cy="50%"
-                        outerRadius={120}
-                        label={({ name, percent }) =>
-                          `${name} ${(percent * 100).toFixed(0)}%`
-                        }
-                      >
-                        {askWomenData.map((entry, index) => (
-                          <Cell
-                            key={`cell-women-${index}`}
-                            fill={SENTIMENT_COLORS[entry.name]}
-                          />
-                        ))}
-                      </Pie>
-                      <Tooltip content={<CustomTooltip />} />
-                    </PieChart>
-                  </ResponsiveContainer>
-                  <div className="mt-4 flex justify-center">
-                    <Link
-                      href="/postsGender/askwomen"
-                      className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full transition-colors duration-200 flex items-center gap-2"
-                    >
-                      <span>See All Women Posts</span>
-                    </Link>
-                  </div>
+                  {askWomenData.reduce((sum, d) => sum + d.value, 0) === 0 ? (
+                    <div className="text-center text-gray-500 text-sm mt-12">
+                      No posts found for Women
+                    </div>
+                  ) : (
+                    <>
+                      <ResponsiveContainer width="100%" height={300}>
+                        <PieChart>
+                          <Pie
+                            data={askWomenData}
+                            dataKey="value"
+                            nameKey="name"
+                            cx="50%"
+                            cy="50%"
+                            outerRadius={120}
+                            label={({ name, percent }) =>
+                              `${name} ${(percent * 100).toFixed(0)}%`
+                            }
+                          >
+                            {askWomenData.map((entry, index) => (
+                              <Cell
+                                key={`cell-women-${index}`}
+                                fill={SENTIMENT_COLORS[entry.name]}
+                              />
+                            ))}
+                          </Pie>
+                          <Tooltip content={<CustomTooltip />} />
+                        </PieChart>
+                      </ResponsiveContainer>
+                      <div className="mt-4 flex justify-center">
+                        <a
+                          href={keyword.trim() !== "" 
+                            ? `https://www.reddit.com/r/AskWomen/search/?q=${keyword}`
+                            : "https://www.reddit.com/r/AskWomen/"}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full transition-colors duration-200 flex items-center gap-2"
+                        >
+                          <span>See All Women Posts</span>
+                        </a>
+                      </div>
+                    </>
+                  )}
                 </div>
 
                 {/* Erkek */}
@@ -186,37 +209,49 @@ const GenderGraph = () => {
                   <h3 className="text-lg font-semibold text-center mb-4 text-purple-500">
                     Men
                   </h3>
-                  <ResponsiveContainer width="100%" height={300}>
-                    <PieChart>
-                      <Pie
-                        data={askMenData}
-                        dataKey="value"
-                        nameKey="name"
-                        cx="50%"
-                        cy="50%"
-                        outerRadius={120}
-                        label={({ name, percent }) =>
-                          `${name} ${(percent * 100).toFixed(0)}%`
-                        }
-                      >
-                        {askMenData.map((entry, index) => (
-                          <Cell
-                            key={`cell-men-${index}`}
-                            fill={SENTIMENT_COLORS[entry.name]}
-                          />
-                        ))}
-                      </Pie>
-                      <Tooltip content={<CustomTooltip />} />
-                    </PieChart>
-                  </ResponsiveContainer>
-                  <div className="mt-4 flex justify-center">
-                    <Link
-                      href="/postsGender/askmen"
-                      className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full transition-colors duration-200 flex items-center gap-2"
-                    >
-                      <span>See All Men Posts</span>
-                    </Link>
-                  </div>
+                  {askMenData.reduce((sum, d) => sum + d.value, 0) === 0 ? (
+                    <div className="text-center text-gray-500 text-sm mt-12">
+                      No posts found for Men
+                    </div>
+                  ) : (
+                    <>
+                      <ResponsiveContainer width="100%" height={300}>
+                        <PieChart>
+                          <Pie
+                            data={askMenData}
+                            dataKey="value"
+                            nameKey="name"
+                            cx="50%"
+                            cy="50%"
+                            outerRadius={120}
+                            label={({ name, percent }) =>
+                              `${name} ${(percent * 100).toFixed(0)}%`
+                            }
+                          >
+                            {askMenData.map((entry, index) => (
+                              <Cell
+                                key={`cell-men-${index}`}
+                                fill={SENTIMENT_COLORS[entry.name]}
+                              />
+                            ))}
+                          </Pie>
+                          <Tooltip content={<CustomTooltip />} />
+                        </PieChart>
+                      </ResponsiveContainer>
+                      <div className="mt-4 flex justify-center">
+                        <a
+                          href={keyword.trim() !== "" 
+                            ? `https://www.reddit.com/r/AskMen/search/?q=${keyword}`
+                            : "https://www.reddit.com/r/AskMen/"}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full transition-colors duration-200 flex items-center gap-2"
+                        >
+                          <span>See All Men Posts</span>
+                        </a>
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
             </div>

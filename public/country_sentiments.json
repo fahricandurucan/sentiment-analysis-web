@@ -1,0 +1,626 @@
+[
+    {
+        "country": "Afghanistan",
+        "sentiment": "negative"
+    },
+    {
+        "country": "Albania",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Algeria",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Andorra",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Angola",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Argentina",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Armenia",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Australia",
+        "sentiment": "negative"
+    },
+    {
+        "country": "Austria",
+        "sentiment": "negative"
+    },
+    {
+        "country": "Azerbaijan",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Bahamas",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Bahrain",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Bangladesh",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Barbados",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Belarus",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Belgium",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Belize",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Benin",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Bhutan",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Bolivia",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Botswana",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Brazil",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Brunei",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Bulgaria",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Burundi",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Cambodia",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Cameroon",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Canada",
+        "sentiment": "negative"
+    },
+    {
+        "country": "Chile",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "China",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Colombia",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Comoros",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Croatia",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Cuba",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Cyprus",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Czechia",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Denmark",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Djibouti",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Ecuador",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Egypt",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Eritrea",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Ethiopia",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Fiji",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Finland",
+        "sentiment": "positive"
+    },
+    {
+        "country": "France",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Gabon",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Gambia",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Georgia",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Germany",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Ghana",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Greece",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Grenada",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Guatemala",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Guinea",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Guyana",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Haiti",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Honduras",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Hungary",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Iceland",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "India",
+        "sentiment": "negative"
+    },
+    {
+        "country": "Indonesia",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Iran",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Iraq",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Ireland",
+        "sentiment": "negative"
+    },
+    {
+        "country": "Israel",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Italy",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Jamaica",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Japan",
+        "sentiment": "negative"
+    },
+    {
+        "country": "Jordan",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Kazakhstan",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Kenya",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Kiribati",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Kosovo",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Kuwait",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Kyrgyzstan",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Laos",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Latvia",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Lebanon",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Lesotho",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Liberia",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Libya",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Liechtenstein",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Lithuania",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Luxembourg",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Madagascar",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Malawi",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Malaysia",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Maldives",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Mali",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Malta",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Mauritania",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Mauritius",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Mexico",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Micronesia",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Moldova",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Monaco",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Mongolia",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Montenegro",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Morocco",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Mozambique",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Myanmar",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Namibia",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Nauru",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Nepal",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Netherlands",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Nicaragua",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Niger",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Nigeria",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Norway",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Oman",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Pakistan",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Palau",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Panama",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Paraguay",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Peru",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Philippines",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Poland",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Portugal",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Qatar",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Romania",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Rwanda",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Samoa",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Senegal",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Serbia",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Seychelles",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Singapore",
+        "sentiment": "negative"
+    },
+    {
+        "country": "Slovakia",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Slovenia",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Somalia",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Spain",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Sudan",
+        "sentiment": "negative"
+    },
+    {
+        "country": "Suriname",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Swaziland",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Sweden",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Switzerland",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Syria",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Taiwan",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Tajikistan",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Tanzania",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Thailand",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Togo",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Tonga",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Tunisia",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Turkey",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Turkmenistan",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Tuvalu",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Uganda",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Ukraine",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Uruguay",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Uzbekistan",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Vanuatu",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Venezuela",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Vietnam",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Yemen",
+        "sentiment": "neutral"
+    },
+    {
+        "country": "Zambia",
+        "sentiment": "positive"
+    },
+    {
+        "country": "Zimbabwe",
+        "sentiment": "neutral"
+    }
+]

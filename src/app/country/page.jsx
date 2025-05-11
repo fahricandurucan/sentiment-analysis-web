@@ -1,4 +1,3 @@
-
 "use client";
 import { useEffect, useState } from "react";
 import MapComponent from "@/app/components/MapComponent";
@@ -7,35 +6,44 @@ import Footer from "@/app/components/Footer";
 import HotTopics from "@/app/components/HotTopics";
 import SearchBar from "@/app/components/SearchBar";
 import CountryInfoCard from "@/app/components/CountryInfoCard";
+
 const MapPage = () => {
-  const [countryData, setCountryData] = useState([]);
-  const [filteredData, setFilteredData] = useState([]); // Filtrelenmiş veri için state
+  const [sentimentData, setSentimentData] = useState([]); 
+  const [countryData, setCountryData] = useState([]); 
+  const [filteredData, setFilteredData] = useState([]); 
   const [keyword, setKeyword] = useState("");
   const [hoveredCountry, setHoveredCountry] = useState(null);
   const [clickedCountry, setClickedCountry] = useState(null);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("/country.json");
-        const data = await response.json();
-        setCountryData(data);
-        setFilteredData(data); // Başlangıçta tüm veriyi ata
+        const sentimentResponse = await fetch("/country_sentiments.json");
+        const sentiment = await sentimentResponse.json();
+        setSentimentData(sentiment);
+        setFilteredData(sentiment); 
+
+        const countryResponse = await fetch("/country.json");
+        const country = await countryResponse.json();
+        setCountryData(country);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
     fetchData();
   }, []);
+
   useEffect(() => {
     if (keyword.trim() === "") {
-      setFilteredData(countryData); 
+      setFilteredData(sentimentData); 
     } else {
       const filtered = countryData.filter((post) =>
         post.title.toLowerCase().includes(keyword.toLowerCase())
       );
-      setFilteredData(filtered);
+      setFilteredData(filtered); 
     }
-  }, [keyword, countryData]);
+  }, [keyword, countryData, sentimentData]);
+
   const getCountrySentiment = (countryName) => {
     const countrySentiments = filteredData.filter(
       (entry) => entry.country === countryName
@@ -52,15 +60,14 @@ const MapPage = () => {
     );
     return mostFrequentSentiment.sentiment;
   };
+
   return (
     <>
       <Navbar />
       <div className="min-h-screen bg-purple-50 flex flex-col items-center p-6 mt-12">
-      <SearchBar onSearch={setKeyword} externalQuery={keyword} />
-      {/* Hot Topics */}
+        <SearchBar onSearch={setKeyword} externalQuery={keyword} />
         <HotTopics onTopicClick={setKeyword} />
         <div className="w-full flex flex-col md:flex-row justify-center gap-8 relative">
-          {/* Map Component */}
           <MapComponent
             countryData={filteredData} 
             getCountrySentiment={getCountrySentiment}
@@ -69,10 +76,11 @@ const MapPage = () => {
             setClickedCountry={setClickedCountry}
           />
           {(hoveredCountry || clickedCountry) && (
-            <div className="absolute top-0 right-4">
+            <div className="absolute top-0 right-8">
               <CountryInfoCard
                 country={clickedCountry || hoveredCountry}
-                countryData={filteredData} 
+                countryData={filteredData}
+                keyword={keyword}
               />
             </div>
           )}
@@ -82,4 +90,5 @@ const MapPage = () => {
     </>
   );
 };
+
 export default MapPage;
