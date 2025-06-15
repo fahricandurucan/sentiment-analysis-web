@@ -89,11 +89,11 @@ const HotTopics = ({ onTopicClick }) => {
 
   const topics = [
     "life",
-    "technology",
+    "trump",
+    "peace",
+    "government",
     "palestine",
-    "turkey",
-    "feminism",
-    "Eğitimde Teknoloji",
+    "technology",
     "Yenilenebilir Enerji"
   ];
 

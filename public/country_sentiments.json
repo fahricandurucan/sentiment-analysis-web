@@ -20,6 +20,10 @@
         "sentiment": "positive"
     },
     {
+        "country": "Antarctica",
+        "sentiment": "neutral"
+    },
+    {
         "country": "Argentina",
         "sentiment": "neutral"
     },
@@ -202,6 +206,10 @@
     {
         "country": "Greece",
         "sentiment": "neutral"
+    },
+    {
+        "country": "Greenland",
+        "sentiment": "positive"
     },
     {
         "country": "Grenada",
@@ -448,6 +456,10 @@
         "sentiment": "positive"
     },
     {
+        "country": "Palestine",
+        "sentiment": "negative"
+    },
+    {
         "country": "Panama",
         "sentiment": "neutral"
     },
@@ -480,12 +492,20 @@
         "sentiment": "positive"
     },
     {
+        "country": "Russia",
+        "sentiment": "positive"
+    },
+    {
         "country": "Rwanda",
         "sentiment": "positive"
     },
     {
         "country": "Samoa",
         "sentiment": "positive"
+    },
+    {
+        "country": "Saudi Arabia",
+        "sentiment": "neutral"
     },
     {
         "country": "Senegal",
@@ -514,6 +534,10 @@
     {
         "country": "Somalia",
         "sentiment": "neutral"
+    },
+    {
+        "country": "South Africa",
+        "sentiment": "negative"
     },
     {
         "country": "Spain",
@@ -590,6 +614,10 @@
     {
         "country": "Ukraine",
         "sentiment": "neutral"
+    },
+    {
+        "country": "United States of America",
+        "sentiment": "negative"
     },
     {
         "country": "Uruguay",
