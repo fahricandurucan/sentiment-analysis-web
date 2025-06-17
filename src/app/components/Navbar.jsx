@@ -83,6 +83,15 @@ export default function Navbar() {
                 Generation Analysis
               </Link>
             </li>
+            <li>
+              <Link 
+                href="/timeline" 
+                className="block py-2 px-4 hover:bg-gray-100 rounded-lg transition"
+                onClick={() => setIsOpen(false)}
+              >
+                Timeline Analysis
+              </Link>
+            </li>
           </ul>
         </div>
         {/* Overlay for mobile menu */}
