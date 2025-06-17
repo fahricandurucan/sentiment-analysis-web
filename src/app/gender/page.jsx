@@ -21,6 +21,8 @@ const GenderGraph = () => {
   const [allPosts, setAllPosts] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([]);
   const [keyword, setKeyword] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const SENTIMENT_COLORS = {
     positive: "#4ade80",
@@ -31,12 +33,26 @@ const GenderGraph = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("/gender.json");
+        setIsLoading(true);
+        setError(null);
+
+        const response = await fetch('/api/gender');
+        if (!response.ok) {
+          throw new Error('Failed to fetch gender data');
+        }
         const data = await response.json();
+        
+        if (!Array.isArray(data)) {
+          throw new Error('Invalid data format');
+        }
+
         setAllPosts(data);
         setFilteredPosts(data);
       } catch (error) {
         console.error("Veri çekme hatası:", error);
+        setError(error.message);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -101,6 +117,22 @@ const GenderGraph = () => {
 
   const askWomenData = prepareGenderSentimentData("askwomen");
   const askMenData = prepareGenderSentimentData("askmen");
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-purple-50 flex items-center justify-center">
+        <div className="text-2xl text-purple-600">Loading...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-purple-50 flex items-center justify-center">
+        <div className="text-2xl text-red-600">Error: {error}</div>
+      </div>
+    );
+  }
 
   return (
     <>

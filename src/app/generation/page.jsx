@@ -20,6 +20,8 @@ const GenerationGraph = () => {
   const [allPosts, setAllPosts] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([]);
   const [keyword, setKeyword] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const SENTIMENT_COLORS = {
     positive: "#4ade80",
@@ -30,12 +32,26 @@ const GenerationGraph = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("/generation.json");
+        setIsLoading(true);
+        setError(null);
+
+        const response = await fetch('/api/generation');
+        if (!response.ok) {
+          throw new Error('Failed to fetch generation data');
+        }
         const data = await response.json();
+        
+        if (!Array.isArray(data)) {
+          throw new Error('Invalid data format');
+        }
+
         setAllPosts(data);
         setFilteredPosts(data);
       } catch (error) {
         console.error("Error fetching data:", error);
+        setError(error.message);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -109,6 +125,22 @@ const GenerationGraph = () => {
           new Date(current.date) > new Date(latest.date) ? current : latest
         )
       : null;
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-purple-50 flex items-center justify-center">
+        <div className="text-2xl text-purple-600">Loading...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-purple-50 flex items-center justify-center">
+        <div className="text-2xl text-red-600">Error: {error}</div>
+      </div>
+    );
+  }
 
   return (
     <>

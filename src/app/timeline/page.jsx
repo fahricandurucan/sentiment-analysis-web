@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Line } from 'react-chartjs-2';
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
@@ -33,53 +33,96 @@ export default function TimelinePage() {
   const [selectedOption, setSelectedOption] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [dropdownOptions, setDropdownOptions] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
+  const fetchData = useCallback(async (type) => {
+    try {
+      console.log('Fetching data for type:', type);
+      const response = await fetch(`/api/timeline?type=${type}`);
+      
+      if (!response.ok) {
+        throw new Error(`Failed to fetch ${type} data: ${response.status}`);
+      }
+      
+      const jsonData = await response.json();
+      console.log('Received data:', jsonData.length, 'items');
+      
+      if (!Array.isArray(jsonData)) {
+        throw new Error('Invalid data format: expected an array');
+      }
+
+      return jsonData;
+    } catch (error) {
+      console.error('Error in fetchData:', error);
+      throw error;
+    }
+  }, []);
+
+  // Veri yükleme işlemi
   useEffect(() => {
-    // Load data based on active tab
+    let isMounted = true;
+
     const loadData = async () => {
       try {
-        const response = await fetch(`/${activeTab}.json`);
-        const jsonData = await response.json();
+        setIsLoading(true);
+        setError(null);
+        console.log('Starting data load for:', activeTab);
+
+        const jsonData = await fetchData(activeTab);
         
+        if (!isMounted) {
+          console.log('Component unmounted, skipping state updates');
+          return;
+        }
+
         // Filter out items with invalid dates
         const validData = jsonData.filter(item => {
           const date = new Date(item.date);
           return !isNaN(date.getTime());
         });
 
+        console.log('Valid data count:', validData.length);
+
         setData(validData);
         setFilteredData(validData);
         
         // Set dropdown options based on active tab
-        if (activeTab === 'country') {
-          const countries = [...new Set(validData.map(item => item.country))];
-          setDropdownOptions(countries);
-        } else if (activeTab === 'gender') {
-          const genders = [...new Set(validData.map(item => item.gender))];
-          setDropdownOptions(genders);
-        } else if (activeTab === 'generation') {
-          const generations = [...new Set(validData.map(item => item.generation))];
-          setDropdownOptions(generations);
-        }
-
-        console.log('Loaded data:', validData.length, 'items');
-        console.log('Date range:', {
-          earliest: new Date(Math.min(...validData.map(item => new Date(item.date)))),
-          latest: new Date(Math.max(...validData.map(item => new Date(item.date))))
+        const options = new Set();
+        validData.forEach(item => {
+          const value = item[activeTab];
+          if (value) options.add(value);
         });
+        
+        setDropdownOptions(Array.from(options));
+        console.log('Dropdown options:', Array.from(options));
+
       } catch (error) {
-        console.error('Error loading data:', error);
+        console.error('Error in loadData:', error);
+        if (isMounted) {
+          setError(error.message);
+        }
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
       }
     };
 
     loadData();
-  }, [activeTab]);
 
+    return () => {
+      isMounted = false;
+    };
+  }, [activeTab, fetchData]);
+
+  // Arama işlemi
   useEffect(() => {
-    // Filter data based on search query
+    if (!data) return;
+
     if (searchQuery) {
       const filtered = data.filter(item => 
-        item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
         item.content?.toLowerCase().includes(searchQuery.toLowerCase())
       );
       setFilteredData(filtered);
@@ -88,21 +131,24 @@ export default function TimelinePage() {
     }
   }, [searchQuery, data]);
 
-  const handleSearch = (query) => {
+  const handleSearch = useCallback((query) => {
     setSearchQuery(query);
-  };
+  }, []);
 
-  const getChartData = () => {
-    if (!selectedOption || filteredData.length === 0) return null;
+  const getChartData = useCallback(() => {
+    if (!selectedOption || !filteredData || filteredData.length === 0) {
+      console.log('No data available for chart');
+      return null;
+    }
+
+    console.log('Generating chart data for:', selectedOption);
 
     // Group data by month and calculate sentiment counts
     const monthlyData = {};
     filteredData.forEach(item => {
-      if (activeTab === 'country' && item.country === selectedOption ||
-          activeTab === 'gender' && item.gender === selectedOption ||
-          activeTab === 'generation' && item.generation === selectedOption) {
+      if (item[activeTab] === selectedOption) {
         const date = new Date(item.date);
-        if (isNaN(date.getTime())) return; // Skip invalid dates
+        if (isNaN(date.getTime())) return;
 
         const month = date.toLocaleString('default', { month: 'long' });
         const year = date.getFullYear();
@@ -117,7 +163,10 @@ export default function TimelinePage() {
           };
         }
         
-        monthlyData[monthYear][item.sentiment]++;
+        const sentiment = item.sentiment?.toLowerCase();
+        if (sentiment && monthlyData[monthYear].hasOwnProperty(sentiment)) {
+          monthlyData[monthYear][sentiment]++;
+        }
       }
     });
 
@@ -138,7 +187,7 @@ export default function TimelinePage() {
         {
           label: 'Positive',
           data: positiveData,
-          borderColor: 'rgb(34, 197, 94)', // yeşil
+          borderColor: 'rgb(34, 197, 94)',
           backgroundColor: 'rgba(34, 197, 94, 0.1)',
           tension: 0.1,
           fill: true
@@ -146,7 +195,7 @@ export default function TimelinePage() {
         {
           label: 'Negative',
           data: negativeData,
-          borderColor: 'rgb(239, 68, 68)', // kırmızı
+          borderColor: 'rgb(239, 68, 68)',
           backgroundColor: 'rgba(239, 68, 68, 0.1)',
           tension: 0.1,
           fill: true
@@ -154,14 +203,14 @@ export default function TimelinePage() {
         {
           label: 'Neutral',
           data: neutralData,
-          borderColor: 'rgb(234, 179, 8)', // sarı
+          borderColor: 'rgb(234, 179, 8)',
           backgroundColor: 'rgba(234, 179, 8, 0.1)',
           tension: 0.1,
           fill: true
         }
       ]
     };
-  };
+  }, [selectedOption, filteredData, activeTab]);
 
   const chartOptions = {
     responsive: true,
@@ -203,6 +252,22 @@ export default function TimelinePage() {
       }
     }
   };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-purple-50 flex items-center justify-center">
+        <div className="text-2xl text-purple-600">Loading...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-purple-50 flex items-center justify-center">
+        <div className="text-2xl text-red-600">Error: {error}</div>
+      </div>
+    );
+  }
 
   const chartData = getChartData();
 
