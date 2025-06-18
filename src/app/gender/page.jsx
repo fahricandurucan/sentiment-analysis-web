@@ -5,8 +5,6 @@ import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import HotTopics from "@/app/components/HotTopics";
 import SearchBar from "@/app/components/SearchBar";
-import Link from "next/link";
-import GenderTooltip from "@/app/components/GenderTooltip";
 
 import {
   PieChart,

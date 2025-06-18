@@ -20,13 +20,12 @@ const pool = mysql.createPool({
   database: process.env.MYSQL_DATABASE,
   waitForConnections: true,
   queueLimit: 0,
-  connectTimeout: 60000, // 60 saniye
+  connectTimeout: 10000,
   ssl: {
     ca: fs.readFileSync(path.join(process.cwd(), 'ca.pem'), 'utf8')  
   }
 });
 
-// Bağlantıyı test et
 pool.getConnection()
   .then(connection => {
     console.log('Database connection successful');

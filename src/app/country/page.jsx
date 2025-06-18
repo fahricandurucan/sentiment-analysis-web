@@ -132,7 +132,7 @@ const MapPage = () => {
             setClickedCountry={setClickedCountry}
           />
           {(hoveredCountry || clickedCountry) && (
-            <div className="absolute top-0 right-8">
+            <div className="fixed top-46 right-13 z-50">
               <CountryInfoCard
                 country={clickedCountry || hoveredCountry}
                 countryData={filteredData}

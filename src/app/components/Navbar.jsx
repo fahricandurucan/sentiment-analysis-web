@@ -11,7 +11,7 @@ export default function Navbar() {
     <nav className="bg-transparent backdrop-blur-sm  text-black py-4 px-6 fixed top-0 left-0 w-full z-50">
       <div className="container mx-auto flex justify-between items-center">
         <Link href="/" className="flex items-center gap-2">
-          <Image src="/logo.png" alt="GlobaLens Logo" width={80} height={80} className="w-10 h-10" />
+          <Image src="/icon.png" alt="GlobaLens Logo" width={80} height={80} className="w-10 h-10" />
           <span className="text-2xl font-bold text-black">GlobaLens</span>
         </Link>
         {/* Hamburger Menü Butonu - Mobil */}
