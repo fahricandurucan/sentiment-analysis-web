@@ -14,7 +14,7 @@ export default function Navbar() {
           <Image src="/icon.png" alt="GlobaLens Logo" width={80} height={80} className="w-10 h-10" />
           <span className="text-2xl font-bold text-black">GlobaLens</span>
         </Link>
-        {/* Hamburger Menü Butonu - Mobil */}
+        {/* Hamburger Menu- Mobil */}
         <button 
           className="md:hidden flex flex-col gap-1.5 p-2"
           onClick={toggleMenu}
@@ -24,11 +24,7 @@ export default function Navbar() {
           <span className={`block w-6 h-0.5 bg-black transition-all duration-300 ${isOpen ? 'opacity-0' : ''}`}></span>
           <span className={`block w-6 h-0.5 bg-black transition-all duration-300 ${isOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
         </button>
-        {/* Desktop Menü */}
         <ul className="hidden md:flex gap-6">
-          <li>
-            <Link href="/" className="hover:underline transition">Home</Link>
-          </li>
           <li>
             <Link href="/country" className="hover:underline transition">Country Analysis</Link>
           </li>
@@ -38,8 +34,10 @@ export default function Navbar() {
           <li>
             <Link href="/generation" className="hover:underline transition">Generation Analysis</Link>
           </li>
+          <li>
+            <Link href="/timeline" className="hover:underline transition">Timeline Analysis</Link>
+          </li>
         </ul>
-        {/* Mobil Sidebar */}
         <div className={`
           fixed top-[72px] right-0 h-screen w-64 bg-slate-100 shadow-lg rounded-md
           transform transition-transform duration-300 ease-in-out
@@ -94,7 +92,6 @@ export default function Navbar() {
             </li>
           </ul>
         </div>
-        {/* Overlay for mobile menu */}
         {isOpen && (
           <div 
             className="fixed inset-0 bg-black/20 md:hidden"

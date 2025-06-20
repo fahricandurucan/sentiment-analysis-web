@@ -23,14 +23,12 @@ const MapPage = () => {
         setIsLoading(true);
         setError(null);
         
-        // Sentiment verilerini çek
         const sentimentResponse = await fetch('/api/sentiments');
         if (!sentimentResponse.ok) {
           throw new Error('Failed to fetch sentiment data');
         }
         const sentiment = await sentimentResponse.json();
         
-        // Veri yapısını kontrol et
         if (!Array.isArray(sentiment)) {
           throw new Error('Invalid sentiment data format');
         }
@@ -38,14 +36,12 @@ const MapPage = () => {
         setSentimentData(sentiment);
         setFilteredData(sentiment);
 
-        // Ülke verilerini çek
         const countryResponse = await fetch('/api/countries');
         if (!countryResponse.ok) {
           throw new Error('Failed to fetch country data');
         }
         const country = await countryResponse.json();
         
-        // Veri yapısını kontrol et
         if (!Array.isArray(country)) {
           throw new Error('Invalid country data format');
         }

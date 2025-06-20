@@ -58,7 +58,7 @@ const Home = () => {
             >
               <div className="w-4 h-4 bg-[#92C5D5] rounded-full mb-3"></div>
               <h3 className="text-sm font-medium text-gray-800">Analysis by Generations</h3>
-              <p className="text-xs text-gray-600 mt-1">Examine the sentiment analysis of different generations.</p>
+              <p className="text-xs text-gray-600 mt-1">Discover sentiment analysis of different generations.</p>
             </div>
 
             <div 
