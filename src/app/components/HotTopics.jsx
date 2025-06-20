@@ -7,12 +7,12 @@ const HotTopics = ({ onTopicClick }) => {
 
   const topics = [
     "life",
-    "trump",
-    "peace",
-    "government",
+    "Trump",
+    "poverty",
+    "LGBT",
     "palestine",
-    "technology",
-    "Yenilenebilir Enerji"
+    "feminism",
+    "ai"
   ];
 
   // Butonun toplam genişliği (px): min-w + padding + margin
